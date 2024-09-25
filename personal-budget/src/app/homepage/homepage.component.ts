@@ -1,6 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
 import { Chart, PieController, ArcElement, Tooltip, Legend } from 'chart.js';
+import * as d3 from 'd3';
 
 Chart.register(PieController, ArcElement, Tooltip, Legend);
 
@@ -26,18 +28,18 @@ export class HomepageComponent implements AfterViewInit {
     labels: [] as string[]
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private dataService: DataService) {
   }
 
   ngAfterViewInit(): void {
-    this.http.get('http://localhost:3000/budget')
-      .subscribe((res: any) => {
-        for (let i = 0; i < res.myBudget.length; i++) {
-          this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
-          this.dataSource.labels[i] = res.myBudget[i].title;
-        }
+    this.dataService.getBudgetData().subscribe((data: any[]) => {
+      if (data.length) {
+        this.dataSource.datasets[0].data = data.map(item => item.budget);
+        this.dataSource.labels = data.map(item => item.title);
         this.createChart();
-      });
+      }
+    });
+    this.dataService.fetchBudgetData();
   }
 
   createChart() {
@@ -49,4 +51,5 @@ export class HomepageComponent implements AfterViewInit {
       });
     }
   }
+
 }

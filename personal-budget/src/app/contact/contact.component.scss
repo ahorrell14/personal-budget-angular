@@ -1,0 +1,36 @@
+div.contact h1 {
+  color: #4d5791;
+  font-size: 25px;
+}
+div.contact h2 {
+  color: #4d5791;
+  font-size: 20px;
+}
+div.contact{
+  text-align: center;
+  margin: 0;
+}
+div.contact p{
+  font-size: 15px;
+}
+div.contact form{
+  display: inline-block;
+  width: 100%;
+}
+div.contact form input, div.contact form textarea{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 20px;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+div.contact form button{
+  background-color: #4d5791;
+  color: white;
+  padding: 14px 20px;
+  margin: 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
+}
